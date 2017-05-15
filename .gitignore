@@ -5,5 +5,8 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
-# experimental directory
+# experimental room!
 lab/
+
+# I think that dont need to copy node_modules cuz i use standard npm modules
+node_modules/

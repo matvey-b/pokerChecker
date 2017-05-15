@@ -1,0 +1,23 @@
+{
+  "name": "poker_checker",
+  "version": "0.0.1",
+  "description": "My lab project for diving into web dev",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matvey-b/pokerChecker.git"
+  },
+  "author": "Matvey Bogomolov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matvey-b/pokerChecker/issues"
+  },
+  "homepage": "https://github.com/matvey-b/pokerChecker#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1"
+  }
+}
