@@ -21,11 +21,10 @@ It's micro web app based on Jquery client and nodejs on server side.
 	* and of course will be DB, i think it will be *MongoDB*, because it's more or less simple and fast for understanding
 
 ##### So, structure of project will look like this:
-```sh
-	./app/(backend)
-		- server.js
-		- pokerChecker.js
-	./client/(frontend)
+```
+	- server.js
+	- pokerChecker.js
+	./client/
 		- index.html
 		- scripts/
 				- app.js
