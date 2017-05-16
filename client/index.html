@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hello world!</title>
+	<title>Poker hand checker</title>
 </head>
 <body>
-	<p>Test message</p>
+	<header>
+		<center>
+			<h1>Poker Hand Checker</h1>
+		</center>
+	</header>
+	<main>
+		<div>
+			<p id="card0"><span class="rank"></span> <span class="suit"></span></p>
+			<p id="card1"><span class="rank"></span> <span class="suit"></span></p>
+			<p id="card2"><span class="rank"></span> <span class="suit"></span></p>
+			<p id="card3"><span class="rank"></span> <span class="suit"></span></p>
+			<p id="card4"><span class="rank"></span> <span class="suit"></span></p>
+			<p id="result"></p>
+			<p id="res1000x"></p>
+			<button id='generateHand'>Случайная раздача</button>
+			<button id='sendHand'>Проверить раздачу</button>
+			<button id='allInOne'>Сгенерировать и проверить</button>
+		</div>
+	</main>
+	<script src="scripts/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="scripts/app.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
