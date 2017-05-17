@@ -1,6 +1,19 @@
 var main = function () {
+	var createdHand;
+
+	// Create Hand by Random Generating
+	$("#generateHand").on("click", () => {
+		createdHand = getRandomHand();
+		for (var i = 0; i < createdHand.length; i++) {
+			const cardId = 'div #card' + i;
+			$(cardId).hide();
+			$(cardId + ' .rank').text(createdHand[i].rank);
+			$(cardId + ' .suit').text(createdHand[i].suit);
+			$(cardId).fadeIn();
+		}
+	});
 	console.log("App is working!!!");
-	console.log(getRandomHand());
+	// console.log(getRandomHand());
 };
 
 function getRandomHand() {
