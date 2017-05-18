@@ -1,17 +1,37 @@
 var main = function () {
-	var createdHand;
+	var newCreatedHand; // oject of new generated Hand
 
 	// Create Hand by Random Generating
 	$("#generateHand").on("click", () => {
-		createdHand = getRandomHand();
-		for (var i = 0; i < createdHand.length; i++) {
+		newCreatedHand = getRandomHand();
+		for (var i = 0; i < newCreatedHand.length; i++) {
 			const cardId = 'div #card' + i;
 			$(cardId).hide();
-			$(cardId + ' .rank').text(createdHand[i].rank);
-			$(cardId + ' .suit').text(createdHand[i].suit);
+			$(cardId + ' .rank').text(newCreatedHand[i].rank);
+			$(cardId + ' .suit').text(newCreatedHand[i].suit);
 			$(cardId).fadeIn();
 		}
 	});
+
+	// Send on server for checking cards combination
+	$("button#checkHand").on("click", () => {
+		const objectForPOST = {
+			"msg": "Here is your Hand object!",
+			"hand": newCreatedHand
+		};
+		if (objectForPOST.hand === undefined) {
+			console.log("There is no Hand object!");
+		} else {
+			$.post("check_hand", objectForPOST, function (res) {
+				console.log(res);
+				const $combNameField = $("#combinationName");
+				$combNameField.hide();
+				$combNameField.text(res.combinationName);
+				$combNameField.fadeIn();
+			});
+		}
+	});
+
 	console.log("App is working!!!");
 	// console.log(getRandomHand());
 };
