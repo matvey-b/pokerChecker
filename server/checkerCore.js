@@ -91,11 +91,18 @@ function checkHand(hand) {
 }
 
 const printHand = (hand) =>{
-	
+	console.log('Printing hand...');
+	hand.forEach(card => {
+		const rank = card.rank[0].toUpperCase() + card.rank.slice(1);
+		const suit = card.suit[0].toUpperCase() + card.suit.slice(1);
+		console.log(`${rank} - ${suit}`);
+	});
+	console.log('==========================');
 };
 
 const testAllChecks = (hand) => {
 	console.log('Tested');
+	printHand(handForTests);
 };
 
 if (!module.parent) { 
