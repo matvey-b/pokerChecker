@@ -1,3 +1,4 @@
+var debug = false; // easy way for testing
 const handForTests = [
 {
 	"rank": "king",
@@ -82,8 +83,10 @@ function checkHand(hand) {
 	{ "combinationName": "Straight Flush", "checker": hasStraightFlush },
 	{ "combinationName": "Royal Flush", "checker": hasRoyalFlush }
 	];
-	
-	var result = allChecks.reduce(function (prevCheck, currCheck) {
+
+	if (debug) console.log(`Check on High Card => ${isHighCard(hand)}`);
+	var result = allChecks.reduce((prevCheck, currCheck) => {
+		if (debug) console.log(`Check on ${currCheck.combinationName} => ${currCheck.checker(hand)}`);
 		return currCheck.checker(hand) ? currCheck : prevCheck;
 	});
 
@@ -101,11 +104,15 @@ const printHand = (hand) =>{
 };
 
 const testAllChecks = (hand) => {
-	console.log('Tested');
 	printHand(handForTests);
+	console.log();
+	console.log('Testing checker...');
+	checkHand(handForTests);
+	console.log('===========================');
 };
 
-if (!module.parent) { 
+if (!module.parent || debug) {
+	debug = true; // if module starts directly then turn on debugging
 	testAllChecks(handForTests); }
 
 // link on list of poker hands:
