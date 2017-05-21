@@ -9,11 +9,11 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "king",
+	"rank": "queen",
 	"suit": "spades" 
 },
 {
-	"rank": "jack",
+	"rank": "queen",
 	"suit": "spades" 
 },
 {
@@ -108,7 +108,13 @@ const haseFullHouse = (hand) => {
 };
 
 const hasFour = (hand) => {
-	return true;
+	/*Four of a kind, also known as quads, is a poker hand containing four
+	cards of the same rank and one card of another rank (the kicker), such as
+	9♣ 9♠ 9♦ 9♥ J♥ ("four of a kind, nines"). It ranks below a straight flush
+	and above a full house.*/
+
+	const namesOfRanks = getRanksFromHand(hand);
+	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 4));
 };
 
 const hasStraightFlush = (hand) => {
