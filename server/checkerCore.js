@@ -61,8 +61,8 @@ const hasPair = (hand) => {
 	// 4♥ 4♠ K♠ 10♦ 5♠ ("one pair, fours" or a "pair of fours"). It ranks
 	// below two pair and above high card.
 
-	const handRanks = getRanksFromHand(hand);
-	return handRanks.some(rank => containNTimes(rank, handRanks, 2));
+	const namesOfRanks = getRanksFromHand(hand);
+	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 2));
 };
 
 const hasTwoPairs = (hand) => {
@@ -91,8 +91,8 @@ const hasThree = (hand) => {
 	(the kickers), such as 2♦ 2♠ 2♣ K♠ 6♥ ("three of a kind, twos" or "trip
 	twos" or a "set of twos"). It ranks below a straight and above two pair.*/
 
-	const handRanks = getRanksFromHand(hand);
-	return handRanks.some(rank => containNTimes(rank, handRanks, 3));
+	const namesOfRanks = getRanksFromHand(hand);
+	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 3));
 };
 
 const hasStraight = (hand) => {
