@@ -26,9 +26,17 @@ const handForTests = [
 "7", "8", "9", "10", "jack", "queen", "king", "ace"];
 const possibleSuits = ["hearts", "diamonds", "spades", "clubs"];
 */
+
+const getRanksFromHand = hand => {
+	const result = hand.map(card => {
+		return card.rank.toLowerCase();
+	});
+	console.log(`getRanksFromHand => ${result}`);
+	return result;
+};
+
 const isHighCard = (hand) => {
 	// Dummy function needed for reduce in checkHand function
-	// 
 	return true;
 };
 
@@ -113,7 +121,8 @@ const testAllChecks = (hand) => {
 
 if (!module.parent || debug) {
 	debug = true; // if module starts directly then turn on debugging
-	testAllChecks(handForTests); }
+	testAllChecks(handForTests);
+}
 
 // link on list of poker hands:
 // https://en.wikipedia.org/wiki/List_of_poker_hands
