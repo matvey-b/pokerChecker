@@ -17,7 +17,7 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "queen",
+	"rank": "ace",
 	"suit": "spades" 
 }
 ];
@@ -27,13 +27,10 @@ const handForTests = [
 const possibleSuits = ["hearts", "diamonds", "spades", "clubs"];
 */
 
-const getRanksFromHand = hand => {
-	const result = hand.map(card => {
-		return card.rank.toLowerCase();
-	});
-	// console.log(`getRanksFromHand => ${result}`);
-	return result;
-};
+//////////// Helpers for checkers ////////////
+const getRanksFromHand = hand => hand.map(card => card.rank.toLowerCase());
+
+const getSuitsFromHand = hand => hand.map(card => card.suit.toLowerCase());
 
 const containNTimes = (rankName, ranksArray, numOfTimes) => {
 	//simple error tracker
@@ -50,6 +47,8 @@ const containNTimes = (rankName, ranksArray, numOfTimes) => {
 	return (result === numOfTimes) ? true : false;
 };
 
+
+////////////  Checkers //////////////
 const isHighCard = (hand) => {
 	// Dummy function needed for reduce in checkHand function
 	return true;
@@ -100,6 +99,11 @@ const hasStraight = (hand) => {
 };
 
 const hasFlush = (hand) => {
+	/*A flush is a poker hand containing five cards all of the same suit, not
+	all of sequential rank, such as K♣ 10♣ 7♣ 6♣ 4♣ (a "king-high flush" or
+	"king-ten-high flush").[20] It ranks below a full house and above a
+	straight.*/
+
 	return true;
 };
 
