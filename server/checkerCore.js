@@ -10,7 +10,7 @@ const handForTests = [
 },
 {
 	"rank": "queen",
-	"suit": "spades" 
+	"suit": "diamonds" 
 },
 {
 	"rank": "queen",
@@ -104,7 +104,9 @@ const hasFlush = (hand) => {
 	"king-ten-high flush").[20] It ranks below a full house and above a
 	straight.*/
 
-	return true;
+	const namesOfSuits = getSuitsFromHand(hand);
+	const firstSuitName = namesOfSuits[0];
+	return namesOfSuits.every(currSuitName => currSuitName === firstSuitName);
 };
 
 const haseFullHouse = (hand) => {
