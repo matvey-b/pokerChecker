@@ -35,6 +35,21 @@ const getRanksFromHand = hand => {
 	return result;
 };
 
+const containNTimes = (rankName, ranksArray, numOfTimes) => {
+	//simple error tracker
+	if (ranksArray[0] === undefined) {
+		console.log("containNTimes => error: Zero ranksArray");
+		return false;
+	}
+
+	var result = ranksArray.reduce((acc, currName) => {
+		console.log('containNTimes: acc = ' + acc + ' currName = ' + currName);
+		return acc + (currName === rankName ? 1 : 0);
+	}, 0);
+
+	return (result === numOfTimes) ? true : false;
+};
+
 const isHighCard = (hand) => {
 	// Dummy function needed for reduce in checkHand function
 	return true;
