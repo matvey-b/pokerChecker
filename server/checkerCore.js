@@ -9,7 +9,7 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "queen",
+	"rank": "king",
 	"suit": "spades" 
 },
 {
@@ -66,7 +66,23 @@ const hasPair = (hand) => {
 };
 
 const hasTwoPairs = (hand) => {
-	return true;
+	/*Two pair is a poker hand containing two cards of the same rank, two
+	cards of another rank and one card of a third rank (the kicker), such as
+	J♥ J♣ 4♣ 4♠ 9♥ ("two pair, jacks and fours" or "two pair, jacks over
+	fours" or "jacks up").[18][26] It ranks below three of a kind and above
+	one pair.*/
+
+	var result = [];
+	const namesOfRanks = getRanksFromHand(hand);
+
+	namesOfRanks.forEach(rankName => {
+		if (result.indexOf(rankName) === -1) {
+			if (containNTimes(rankName, namesOfRanks, 2)) 
+				result.push(rankName);
+		}
+	});
+
+	return (result.length === 2) ? true : false;
 };
 
 const hasThree = (hand) => {
