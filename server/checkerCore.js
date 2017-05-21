@@ -31,7 +31,7 @@ const getRanksFromHand = hand => {
 	const result = hand.map(card => {
 		return card.rank.toLowerCase();
 	});
-	console.log(`getRanksFromHand => ${result}`);
+	// console.log(`getRanksFromHand => ${result}`);
 	return result;
 };
 
@@ -43,7 +43,7 @@ const containNTimes = (rankName, ranksArray, numOfTimes) => {
 	}
 
 	var result = ranksArray.reduce((acc, currName) => {
-		console.log('containNTimes: acc = ' + acc + ' currName = ' + currName);
+		// console.log('containNTimes: acc = ' + acc + ' currName = ' + currName);
 		return acc + (currName === rankName ? 1 : 0);
 	}, 0);
 
@@ -56,8 +56,13 @@ const isHighCard = (hand) => {
 };
 
 const hasPair = (hand) => {
-	// body...
-	return true;
+	// One pair, or simply a pair, is a poker hand containing two cards of the
+	// same rank and three cards of three other ranks (the kickers), such as
+	// 4♥ 4♠ K♠ 10♦ 5♠ ("one pair, fours" or a "pair of fours"). It ranks
+	// below two pair and above high card.
+
+	const handRanks = getRanksFromHand(hand);
+	return handRanks.some(rank => containNTimes(rank, handRanks, 2));
 };
 
 const hasTwoPairs = (hand) => {
