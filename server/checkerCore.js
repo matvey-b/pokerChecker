@@ -9,7 +9,7 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "10",
+	"rank": "queen",
 	"suit": "spades" 
 },
 {
@@ -17,7 +17,7 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "ace",
+	"rank": "queen",
 	"suit": "spades" 
 }
 ];
@@ -70,7 +70,13 @@ const hasTwoPairs = (hand) => {
 };
 
 const hasThree = (hand) => {
-	return true;
+	/*Three of a kind, also known as trips or a set, is a poker hand
+	containing three cards of the same rank and two cards of two other ranks
+	(the kickers), such as 2♦ 2♠ 2♣ K♠ 6♥ ("three of a kind, twos" or "trip
+	twos" or a "set of twos"). It ranks below a straight and above two pair.*/
+
+	const handRanks = getRanksFromHand(hand);
+	return handRanks.some(rank => containNTimes(rank, handRanks, 3));
 };
 
 const hasStraight = (hand) => {
