@@ -9,8 +9,8 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "queen",
-	"suit": "diamonds" 
+	"rank": "jack",
+	"suit": "spades" 
 },
 {
 	"rank": "10",
@@ -123,6 +123,7 @@ const hasStraight = (hand) => {
 	// Straight.
 	// if sequence has 'ACE', then we need to process 1,5 and 2,6 elements.
 	// (e.g. ACE, 2, 3, 4, 5 or 10, JACK, QUEEN, KING, ACE)
+	// console.log(ranksAsInt);
 	if (ranksAsInt.length === 5) {
 		return ((ranksAsInt[4] - ranksAsInt[0]) === 4) ? true : false;
 	} else {
@@ -157,12 +158,33 @@ const hasFour = (hand) => {
 };
 
 const hasStraightFlush = (hand) => {
-	return true;
+	/*A straight flush is a poker hand containing five cards of sequential
+	rank, all of the same suit, such as Q♥ J♥ 10♥ 9♥ 8♥ (a "queen-high
+	straight flush").[4] It ranks below five of a kind and above four of a
+	kind.[7] As part of a straight flush, an ace can rank either above a king
+	or below a two, depending on the rules of the game. Under high rules, an
+	ace can rank either high (e.g. A♥ K♥ Q♥ J♥ 10♥ is an ace-high straight
+	flush) or low (e.g. 5♦ 4♦ 3♦ 2♦ A♦ is a five-high straight flush), but
+	cannot rank both high and low in the same hand (e.g. Q♣ K♣ A♣ 2♣ 3♣ is an
+	ace-high flush, not a straight flush).*/
+	
+	return hasStraight(hand) && hasFlush(hand);
 };
 
 
 const hasRoyalFlush = (hand) => {
-	return true;
+	/*An ace-high straight flush, such as A♦ K♦ Q♦ J♦ 10♦, is commonly known
+	as a royal flush or royal straight flush and is the best possible hand in
+	high games when not using wild cards. A five-high straight flush, such as
+	5♥ 4♥ 3♥ 2♥ A♥, is otherwise known as a steel wheel and is significant in
+	ace-to-five high-low split games for being both the best low hand and
+	usually the best high hand of the showdown.*/
+
+	if (hasStraightFlush(hand)) {
+		const namesOfRanks = getRanksFromHand(hand);
+		return namesOfRanks.includes('10') && namesOfRanks.includes('ace');
+	} else return false;
+
 };
 
 function checkHand(hand) {
