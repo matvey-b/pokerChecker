@@ -9,11 +9,11 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "queen",
+	"rank": "10",
 	"suit": "diamonds" 
 },
 {
-	"rank": "10",
+	"rank": "queen",
 	"suit": "spades" 
 },
 {
@@ -119,10 +119,15 @@ const hasStraight = (hand) => {
 	// of integers array. Because 'ACE' === 0 and 13 at the same time.
 	if (ranksAsInt.indexOf(0) === 0) ranksAsInt.push(13);
 
-	// if elem5 - elem1 in sorted sequence = 4 (e.g.: 2,3,4,5,6), then it has
-	// Straight.
+	// if elem5 - elem1 in sorted unique sequence = 4 (e.g.: 2,3,4,5,6), then 
+	// it has Straight.
 	// if sequence has 'ACE', then we need to process 1,5 and 2,6 elements.
 	// (e.g. ACE, 2, 3, 4, 5 or 10, JACK, QUEEN, KING, ACE)
+	const hasDuplicates = ranksAsInt.some((elem, idx, array) => {
+		return array.slice(idx + 1).includes(elem);
+	});
+	if (hasDuplicates) return false;
+
 	if (ranksAsInt.length === 5) {
 		return ((ranksAsInt[4] - ranksAsInt[0]) === 4) ? true : false;
 	} else {
