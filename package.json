@@ -22,6 +22,7 @@
     "babel-preset-es2017": "^6.24.1"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.2"
   }
 }

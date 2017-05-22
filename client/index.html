@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="styles/material.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="styles/styles.css">
 	<title>Poker hand checker</title>
 </head>
 <body>
@@ -16,14 +19,14 @@
 			<p id="card2"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card3"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card4"><span class="rank"></span> <span class="suit"></span></p>
-			<p id="result"></p>
-			<p id="res1000x"></p>
-			<button id='generateHand'>Случайная раздача</button>
-			<button id='sendHand'>Проверить раздачу</button>
-			<button id='allInOne'>Сгенерировать и проверить</button>
+			<p id="combinationName"></p>
+			<button id='generateHand'>Generate Hand</button>
+			<button id='checkHand'>Check Hand</button>
+			<button id='generateAndCheck'>Generate and Check</button>
 		</div>
 	</main>
 	<script src="scripts/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="styles/material.min.js"></script>
 </body>
 </html>
