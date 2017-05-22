@@ -2,7 +2,8 @@ var main = function () {
 	var newCreatedHand; // oject of new generated Hand
 
 	// Create Hand by Random Generating
-	$("#generateHand").on("click", () => {
+	const generateHandBtn = $("#generateHand");
+	generateHandBtn.on("click", () => {
 		newCreatedHand = getRandomHand();
 		for (var i = 0; i < newCreatedHand.length; i++) {
 			const cardId = 'div #card' + i;
@@ -14,7 +15,8 @@ var main = function () {
 	});
 
 	// Send on server for checking cards combination
-	$("button#checkHand").on("click", () => {
+	const checkHandBtn = $("button#checkHand"); 
+	checkHandBtn.on("click", () => {
 		const objectForPOST = {
 			"msg": "Here is your Hand object!",
 			"hand": newCreatedHand
@@ -32,6 +34,12 @@ var main = function () {
 		}
 	});
 
+	// Generate and send to check in one action
+	$("#generateAndCheck").on("click", () => {
+		generateHandBtn.trigger("click");
+		checkHandBtn.trigger("click");
+	});
+	
 	console.log("App is working!!!");
 	// console.log(getRandomHand());
 };
