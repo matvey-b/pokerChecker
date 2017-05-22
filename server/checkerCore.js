@@ -5,20 +5,20 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "king",
+	"rank": "2",
 	"suit": "spades" 
 },
 {
-	"rank": "ace",
+	"rank": "4",
+	"suit": "spades" 
+},
+{
+	"rank": "6",
 	"suit": "spades" 
 },
 {
 	"rank": "king",
-	"suit": "spades" 
-},
-{
-	"rank": "king",
-	"suit": "spades" 
+	"suit": "hearts" 
 }
 ];
 
@@ -50,7 +50,7 @@ const containNTimes = (rankName, ranksArray, numOfTimes) => {
 
 ////////////  Checkers //////////////
 const isHighCard = hand => {
-	// Dummy function needed for reduce in checkHand function
+	// Dummy function used in some in checkHand function
 	return true;
 };
 
@@ -220,26 +220,33 @@ const hasRoyalFlush = hand => {
 };
 
 function checkHand(hand) {
+	// manually create array with all checks and combination names
 	const allChecks = [
-	{ "combinationName": "High Card", "checker": isHighCard },
-	{ "combinationName": "One Pair", "checker": hasPair },
-	{ "combinationName": "Two Pairs", "checker": hasTwoPairs },
-	{ "combinationName": "3-of-a-Kind", "checker": hasThree },
-	{ "combinationName": "Straight", "checker": hasStraight },
-	{ "combinationName": "Flush", "checker": hasFlush },
-	{ "combinationName": "Full House", "checker": hasFullHouse },
-	{ "combinationName": "4-of-a-Kind", "checker": hasFour },
-	{ "combinationName": "Straight Flush", "checker": hasStraightFlush },
-	{ "combinationName": "Royal Flush", "checker": hasRoyalFlush }
+	{ "combinationName": "Royal Flush", "checkFunc": hasRoyalFlush },
+	{ "combinationName": "Straight Flush", "checkFunc": hasStraightFlush },
+	{ "combinationName": "4-of-a-Kind", "checkFunc": hasFour },
+	{ "combinationName": "Full House", "checkFunc": hasFullHouse },
+	{ "combinationName": "Flush", "checkFunc": hasFlush },
+	{ "combinationName": "Straight", "checkFunc": hasStraight },
+	{ "combinationName": "3-of-a-Kind", "checkFunc": hasThree },
+	{ "combinationName": "Two Pairs", "checkFunc": hasTwoPairs },
+	{ "combinationName": "One Pair", "checkFunc": hasPair },
+	{ "combinationName": "High Card", "checkFunc": isHighCard }
 	];
 
-	if (debug) console.log(`Check on High Card => ${isHighCard(hand)}`);
-	var result = allChecks.reduce((prevCheck, currCheck) => {
-		if (debug) console.log(`Check on ${currCheck.combinationName} => ${currCheck.checker(hand)}`);
-		return currCheck.checker(hand) ? currCheck : prevCheck;
+	// test on all checks, until not get true from one of them
+	var result;
+	allChecks.some(checkerObject => {
+		const currCheckResult = checkerObject.checkFunc(hand);
+		const currCombinationName = checkerObject.combinationName;
+		if (debug) console.log(`Check on ${currCombinationName}  => ${currCheckResult}`);
+		if (currCheckResult) {
+			result = currCombinationName;
+			return true; // brake poin for 'some()'
+		}
 	});
 
-	return result.combinationName;
+	return result;
 }
 
 const printHand = hand =>{
@@ -256,7 +263,7 @@ const testAllChecks = hand => {
 	printHand(handForTests);
 	console.log();
 	console.log('Testing checker...');
-	checkHand(handForTests);
+	console.log('Checker return => ' + checkHand(handForTests));
 	console.log('===========================');
 };
 
