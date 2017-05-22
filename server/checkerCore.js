@@ -249,6 +249,7 @@ function checkHand(hand) {
 	return result;
 }
 
+//////// USEFUL TOOLS FOR WORKING WITH HANDS ////////
 const printHand = hand =>{
 	console.log('Printing hand...');
 	hand.forEach(card => {
@@ -256,21 +257,33 @@ const printHand = hand =>{
 		const suit = card.suit[0].toUpperCase() + card.suit.slice(1);
 		console.log(`${rank} - ${suit}`);
 	});
-	console.log('==========================');
 };
 
+///////// SIMPLE TEST FOR ONE HAND //////////////
 const testAllChecks = hand => {
-	printHand(handForTests);
-	console.log();
 	console.log('Testing checker...');
-	console.log('Checker return => ' + checkHand(handForTests));
+	if (hand === undefined) {
+		console.log('Cant testing. Hand is not defined!');
+		return false;
+	}
+	console.log('On hand:');
+	printHand(hand);
+	console.log();
+	console.log('Checker return => ' + checkHand(hand));
 	console.log('===========================');
 };
 
+////////// EXPORTS //////////////
+module.exports.test = testAllChecks;
+module.exports.checkHand = checkHand;
+module.exports.handForTests = handForTests;
+
+//////// START SIMPLE TEST IN DEBUG MODE IF RUN MODULE DIRECTLY //////
 if (!module.parent || debug) {
 	debug = true; // if module starts directly then turn on debugging
 	testAllChecks(handForTests);
 }
+
 
 // link on list of poker hands:
 // https://en.wikipedia.org/wiki/List_of_poker_hands
