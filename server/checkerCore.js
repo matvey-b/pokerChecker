@@ -1,23 +1,23 @@
 var debug = false; // easy way for testing
 const handForTests = [
 {
+	"rank": "ace",
+	"suit": "spades" 
+},
+{
 	"rank": "king",
 	"suit": "spades" 
 },
 {
-	"rank": "jack",
-	"suit": "spades" 
-},
-{
-	"rank": "queen",
-	"suit": "diamonds" 
-},
-{
-	"rank": "10",
-	"suit": "spades" 
-},
-{
 	"rank": "ace",
+	"suit": "spades" 
+},
+{
+	"rank": "king",
+	"suit": "spades" 
+},
+{
+	"rank": "king",
 	"suit": "spades" 
 }
 ];
@@ -49,12 +49,12 @@ const containNTimes = (rankName, ranksArray, numOfTimes) => {
 
 
 ////////////  Checkers //////////////
-const isHighCard = (hand) => {
+const isHighCard = hand => {
 	// Dummy function needed for reduce in checkHand function
 	return true;
 };
 
-const hasPair = (hand) => {
+const hasPair = hand => {
 	// One pair, or simply a pair, is a poker hand containing two cards of the
 	// same rank and three cards of three other ranks (the kickers), such as
 	// 4♥ 4♠ K♠ 10♦ 5♠ ("one pair, fours" or a "pair of fours"). It ranks
@@ -64,7 +64,7 @@ const hasPair = (hand) => {
 	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 2));
 };
 
-const hasTwoPairs = (hand) => {
+const hasTwoPairs = hand => {
 	/*Two pair is a poker hand containing two cards of the same rank, two
 	cards of another rank and one card of a third rank (the kicker), such as
 	J♥ J♣ 4♣ 4♠ 9♥ ("two pair, jacks and fours" or "two pair, jacks over
@@ -84,7 +84,7 @@ const hasTwoPairs = (hand) => {
 	return (result.length === 2) ? true : false;
 };
 
-const hasThree = (hand) => {
+const hasThree = hand => {
 	/*Three of a kind, also known as trips or a set, is a poker hand
 	containing three cards of the same rank and two cards of two other ranks
 	(the kickers), such as 2♦ 2♠ 2♣ K♠ 6♥ ("three of a kind, twos" or "trip
@@ -94,7 +94,7 @@ const hasThree = (hand) => {
 	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 3));
 };
 
-const hasStraight = (hand) => {
+const hasStraight = hand => {
 	/*A straight is a poker hand containing five cards of sequential rank, not
 	all of the same suit, such as 7♣ 6♠ 5♠ 4♥ 3♥ (a "seven-high straight"). It
 	ranks below a flush and above three of a kind.[7] As part of a straight,
@@ -136,7 +136,7 @@ const hasStraight = (hand) => {
 	}
 };
 
-const hasFlush = (hand) => {
+const hasFlush = hand => {
 	/*A flush is a poker hand containing five cards all of the same suit, not
 	all of sequential rank, such as K♣ 10♣ 7♣ 6♣ 4♣ (a "king-high flush" or
 	"king-ten-high flush").[20] It ranks below a full house and above a
@@ -147,11 +147,39 @@ const hasFlush = (hand) => {
 	return namesOfSuits.every(currSuitName => currSuitName === firstSuitName);
 };
 
-const haseFullHouse = (hand) => {
-	return true;
+const hasFullHouse = hand => {
+	/*A full house, also known as a full boat or tight[citation needed] (and
+	originally called a full hand), is a poker hand containing three cards of
+	one rank and two cards of another rank, such as 3♣ 3♠ 3♦ 6♣ 6♥ (a "full
+	house, threes over sixes" or "threes full of sixes" or "threes
+	full"). It ranks below four of a kind and above a flush.*/
+	
+	var result = false;
+	const namesOfRanks = getRanksFromHand(hand);
+	var rankOfThree = '';
+
+	// getting name of rank included in 3-of-a-kind combination
+	namesOfRanks.some(rankName => {
+		if (containNTimes(rankName, namesOfRanks, 3)) {
+			rankOfThree = rankName;
+			return true;
+		}
+	});
+
+	// If we have Trip combination the we finding pair.
+	// If it there then result = true and we have FullHouse
+	namesOfRanks.some(rankName => {
+		if (rankOfThree !== '' && rankName !== rankOfThree && 
+			containNTimes(rankName, namesOfRanks, 2)) {
+			result = true;
+			return true;
+		}
+	});
+
+	return result;
 };
 
-const hasFour = (hand) => {
+const hasFour = hand => {
 	/*Four of a kind, also known as quads, is a poker hand containing four
 	cards of the same rank and one card of another rank (the kicker), such as
 	9♣ 9♠ 9♦ 9♥ J♥ ("four of a kind, nines"). It ranks below a straight flush
@@ -161,7 +189,7 @@ const hasFour = (hand) => {
 	return namesOfRanks.some(rank => containNTimes(rank, namesOfRanks, 4));
 };
 
-const hasStraightFlush = (hand) => {
+const hasStraightFlush = hand => {
 	/*A straight flush is a poker hand containing five cards of sequential
 	rank, all of the same suit, such as Q♥ J♥ 10♥ 9♥ 8♥ (a "queen-high
 	straight flush").[4] It ranks below five of a kind and above four of a
@@ -176,7 +204,7 @@ const hasStraightFlush = (hand) => {
 };
 
 
-const hasRoyalFlush = (hand) => {
+const hasRoyalFlush = hand => {
 	/*An ace-high straight flush, such as A♦ K♦ Q♦ J♦ 10♦, is commonly known
 	as a royal flush or royal straight flush and is the best possible hand in
 	high games when not using wild cards. A five-high straight flush, such as
@@ -199,7 +227,7 @@ function checkHand(hand) {
 	{ "combinationName": "3-of-a-Kind", "checker": hasThree },
 	{ "combinationName": "Straight", "checker": hasStraight },
 	{ "combinationName": "Flush", "checker": hasFlush },
-	{ "combinationName": "Full House", "checker": haseFullHouse },
+	{ "combinationName": "Full House", "checker": hasFullHouse },
 	{ "combinationName": "4-of-a-Kind", "checker": hasFour },
 	{ "combinationName": "Straight Flush", "checker": hasStraightFlush },
 	{ "combinationName": "Royal Flush", "checker": hasRoyalFlush }
@@ -214,7 +242,7 @@ function checkHand(hand) {
 	return result.combinationName;
 }
 
-const printHand = (hand) =>{
+const printHand = hand =>{
 	console.log('Printing hand...');
 	hand.forEach(card => {
 		const rank = card.rank[0].toUpperCase() + card.rank.slice(1);
@@ -224,7 +252,7 @@ const printHand = (hand) =>{
 	console.log('==========================');
 };
 
-const testAllChecks = (hand) => {
+const testAllChecks = hand => {
 	printHand(handForTests);
 	console.log();
 	console.log('Testing checker...');
