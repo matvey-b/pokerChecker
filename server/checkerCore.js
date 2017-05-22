@@ -5,7 +5,7 @@ const handForTests = [
 	"suit": "spades" 
 },
 {
-	"rank": "queen",
+	"rank": "jack",
 	"suit": "spades" 
 },
 {
@@ -13,7 +13,7 @@ const handForTests = [
 	"suit": "diamonds" 
 },
 {
-	"rank": "queen",
+	"rank": "10",
 	"suit": "spades" 
 },
 {
@@ -95,7 +95,40 @@ const hasThree = (hand) => {
 };
 
 const hasStraight = (hand) => {
-	return true;
+	/*A straight is a poker hand containing five cards of sequential rank, not
+	all of the same suit, such as 7♣ 6♠ 5♠ 4♥ 3♥ (a "seven-high straight"). It
+	ranks below a flush and above three of a kind.[7] As part of a straight,
+	an ace can rank either above a king or below a two, depending on the rules
+	of the game. Under high rules, an ace can rank either high (e.g. A♦ K♣ Q♣
+	J♦ 10♠ is an ace-high straight) or low (e.g. 5♣ 4♦ 3♥ 2♥ A♠ is a five-high
+	straight), but the ace cannot rank both high and low in the same hand (
+	e.g. Q♠ K♠ A♣ 2♥ 3♦ is an ace-high high-card hand, not a straight).*/
+
+	const ranksByIndices = ["ace", "2", "3", "4", "5", "6", "7", "8", "9",
+	 		"10", "jack", "queen", "king"];
+
+	const namesOfRanks = getRanksFromHand(hand);
+
+	// getting sorted array of integers numbers from ranks for ariphmetic
+	// processing in the future
+	// In result all cards maps in [0..13] array of integers. 0 and 13 = 'ACE'.
+	var ranksAsInt = namesOfRanks.map(rankName => 
+			ranksByIndices.indexOf(rankName)).sort((a, b) => a < b ? -1 : 1);
+
+	// if namesOfRanks has 'ACE', we need add his duplicate at the end
+	// of integers array. Because 'ACE' === 0 and 13 at the same time.
+	if (ranksAsInt.indexOf(0) === 0) ranksAsInt.push(13);
+
+	// if elem5 - elem1 in sorted sequence = 4 (e.g.: 2,3,4,5,6), then it has
+	// Straight.
+	// if sequence has 'ACE', then we need to process 1,5 and 2,6 elements.
+	// (e.g. ACE, 2, 3, 4, 5 or 10, JACK, QUEEN, KING, ACE)
+	if (ranksAsInt.length === 5) {
+		return ((ranksAsInt[4] - ranksAsInt[0]) === 4) ? true : false;
+	} else {
+		return (ranksAsInt[4] - ranksAsInt[0] === 4 ||
+			ranksAsInt[5] - ranksAsInt[1] === 4) ? true : false;
+	}
 };
 
 const hasFlush = (hand) => {
