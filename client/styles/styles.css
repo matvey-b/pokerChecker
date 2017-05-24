@@ -1,53 +1,93 @@
-body {
-	background: greenyellow;
+html {
+	height: 100%;
 }
 
-main {
-	width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+body {
+	background: #ccffcc;
+	min-height: 100%;
+}
+
+header,
+main,
+footer {
+	margin: auto;
+	width: 1200px;
+	background: green;
+	padding-bottom: 20px;
 }
 
 header {
-	width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
+	padding-top: 20px;
 }
 
-div.left {
-	width: 15%;
-	float: left;
+header .container,
+main .container,
+footer .container {
+	margin: 0 auto;
+    width: 1000px;
 }
 
-div.right {
-	width: 85%;
-	float: right;
-}
-
-div.right img {
-	height: 200px;
-	float: left;
+div.cards-table {
+	border: inset;
+    height: 500px;
+    width: 1000px;
+    border-color: saddlebrown;
+    border-radius: 300px;
+    border-width: 20px;
+    background: limegreen;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 div.cards-line {
-	height: 220px;
-	width: 90%;
-	margin: auto;
+	width: 900px;
+	margin: 0 auto;
 }
 
-div.cards-line div {
-	margin: 10px;
+div.cards-table .cards-line div {
 	float: left;
-	border: 2px;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 20px;
+	width: 150px;
 }
 
-div.cards-line img {
+div.cards-table img {
 	height: 200px;
+	display: block;
+	margin: 0 auto;
 }
 
-div.cards-line p {
+div.cards-table p {
 	margin-top: 5px;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.1em;
+}
+
+div.combination-name {
+	text-align: center;
+    position: relative;
+    top: -25px;
+}
+
+div.interactive-section {
+	text-align: center;
+    position: relative;
+    top: 20px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+header h1 {
+	margin: 0px;
+}
+
+div.combination-name h2 {
+	margin: 0;
+}
+
+div.combination-name h3 {
+	margin: 0;
+	margin-top: 5px;
 }

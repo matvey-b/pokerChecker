@@ -6,7 +6,7 @@ var main = function () {
 	generateHandBtn.on("click", () => {
 		newCreatedHand = getRandomHand();
 		for (var i = 0; i < newCreatedHand.length; i++) {
-			const cardId = 'div #card' + i;
+			const cardId = '#card' + i;
 			$(cardId).hide();
 			$(cardId + ' .rank').text(newCreatedHand[i].rank);
 			$(cardId + ' .suit').text(newCreatedHand[i].suit);

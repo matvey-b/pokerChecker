@@ -1,56 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="styles/material.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="styles/normalize.css">
 	<link rel="stylesheet" href="styles/styles.css">
 	<title>Poker hand checker</title>
 </head>
 <body>
 	<header>
-		<center>
-			<h1>Poker Hand Checker</h1>
-		</center>
+		<div class="container">
+			<center>
+				<h1>Welcome to Poker Hands Generator</h1>
+			</center>
+		</div>
 	</header>
 	<main>
-		<div class="left">
-			<p id="card0"><span class="rank"></span> <span class="suit"></span></p>
+		<div class="container">
+			<!-- <p id="card0"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card1"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card2"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card3"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="card4"><span class="rank"></span> <span class="suit"></span></p>
 			<p id="combinationName"></p>
-			<button id='generateHand'>Generate Hand</button>
-			<button id='checkHand'>Check Hand</button>
-			<button id='generateAndCheck'>Generate and Check</button>
-		</div>
-		<div class="right">
-			<img src="images/10_of_clubs.png" alt="10_of_clubs">
-		</div>
-		<div class="cards-line">
-			<div class="card1-container">
-				<img src="images/10_of_clubs.png" alt="10_of_clubs">
-				<p>Card 1</p>
-			</div>
-			<div class="card2-container">
-				<img src="images/10_of_clubs.png" alt="10_of_clubs">
-				<p>Card 1</p>
-			</div>
-			<div class="card3-container">
-				<img src="images/10_of_clubs.png" alt="10_of_clubs">
-				<p>Card 1</p>
-			</div>
-			<div class="card4-container">
-				<img src="images/10_of_clubs.png" alt="10_of_clubs">
-			</div>
-			<div class="card5-container">
-				<img src="images/10_of_clubs.png" alt="10_of_clubs">
+			<div class="buttons">
+				<button id='generateHand'>Generate Hand</button>
+				<button id='checkHand'>Check Hand</button>
+				<button id='generateAndCheck'>Generate and Check</button>
+			</div> -->
+			<div class="cards-table">
+				<div class="combination-name">
+					<h2>Combination name is:</h2>
+					<h3>Three of a kind</h3>
+				</div>
+				<div class="cards-line">
+					<div class="card1-container">
+						<img src="images/10_of_clubs.png" alt="10_of_clubs">
+						<p>Queen of Diamonds</p>
+					</div>
+					<div class="card2-container">
+						<img src="images/10_of_clubs.png" alt="10_of_clubs">
+						<p>Queen of Diamonds</p>
+					</div>
+					<div class="card3-container">
+						<img src="images/10_of_clubs.png" alt="10_of_clubs">
+						<p>Queen of Diamonds</p>
+					</div>
+					<div class="card4-container">
+						<img src="images/10_of_clubs.png" alt="10_of_clubs">
+						<p>Queen of Diamonds</p>
+					</div>
+					<div class="card5-container">
+						<img src="images/10_of_clubs.png" alt="10_of_clubs">
+						<p>Queen of Diamonds</p>
+					</div>
+				</div>
+				<div class="interactive-section">
+					<div class="description">
+						<p>You can generate cards combination randomly or you can choose one of combinations names for generate appropriate hand</p>
+					</div>
+					<div class="buttons">
+						<button class="random-gen">GENERATE RANDOMLY</button>
+						<button class="choose-and-gen">CHOOSE COMBINATION</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		
 	</main>
 	<script src="scripts/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/app.js" type="text/javascript" charset="utf-8"></script>
-	<script src="styles/material.min.js"></script>
 </body>
 </html>
