@@ -57,6 +57,8 @@ div.cards-table img {
 	height: 200px;
 	display: block;
 	margin: 0 auto;
+	background-color: white;
+	border-radius: 4px;
 }
 
 div.cards-table p {
@@ -183,10 +185,12 @@ button:hover {
 		color: black;
 		font-size: 1.6em;
 		text-align: center;
+		width: 60%;
+	    margin: auto;
 	}
 
-	.modal-body p.checker-off {
-		
+	.modal-body p {
+		cursor: pointer;
 	}
 
 	.modal-body p.checker-on {
