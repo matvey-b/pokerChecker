@@ -1,91 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-	/* The Modal (background) */
-	.modal {
-	    display: none; /* Hidden by default */
-	    position: fixed; /* Stay in place */
-	    z-index: 1; /* Sit on top */
-	    padding-top: 100px; /* Location of the box */
-	    left: 0;
-	    top: 0;
-	    width: 100%; /* Full width */
-	    height: 100%; /* Full height */
-	    overflow: auto; /* Enable scroll if needed */
-	    background-color: rgb(0,0,0); /* Fallback color */
-	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	}
-
-	/* Modal Content */
-	.modal-content {
-	    position: relative;
-	    background-color: #fefefe;
-	    margin: auto;
-	    padding: 0;
-	    border: 1px solid #888;
-	    width: 80%;
-	    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-	    -webkit-animation-name: animatetop;
-	    -webkit-animation-duration: 0.4s;
-	    animation-name: animatetop;
-	    animation-duration: 0.4s
-	}
-
-	/* Add Animation */
-	@-webkit-keyframes animatetop {
-	    from {top:-300px; opacity:0} 
-	    to {top:0; opacity:1}
-	}
-
-	@keyframes animatetop {
-	    from {top:-300px; opacity:0}
-	    to {top:0; opacity:1}
-	}
-
-	/* The Close Button */
-	.close {
-	    color: white;
-	    float: right;
-	    font-size: 28px;
-	    font-weight: bold;
-	}
-
-	.close:hover,
-	.close:focus {
-	    color: #000;
-	    text-decoration: none;
-	    cursor: pointer;
-	}
-
-	.modal-header {
-	    padding: 2px 16px;
-	    background-color: #5cb85c;
-	    color: white;
-	    text-align: center;
-	}
-
-	.modal-body {
-		padding: 2px 16px;
-		color: black;
-	}
-
-	.modal-footer {
-	    padding: 2px 16px;
-	    background-color: #5cb85c;
-	    color: white;
-	    text-align: center;
-	}
-	</style>
 	<link rel="stylesheet" href="styles/normalize.css">
 	<link rel="stylesheet" href="styles/styles.css">
-	<title>Poker hand checker</title>
+	<title>Poker hand generator</title>
 </head>
 <body>
 	<header>
 		<div class="container">
 			<center>
-				<h1>Welcome to Poker Hands Generator</h1>
+				<h1>Welcome to simple Poker Hands Generator</h1>
 			</center>
 		</div>
 	</header>
@@ -131,63 +55,41 @@
 				</div>
 				<div class="interactive-section">
 					<div class="description">
-						<p>You can generate cards combination randomly or you can choose one of combinations names for generate appropriate hand</p>
+						<p>You can generate cards combination randomly or you can choose one or more of combinations names for generate appropriate hand</p>
 					</div>
 					<div class="buttons">
 						<button class="random-gen">GENERATE RANDOMLY</button>
-						<button id="choose-and-gen">CHOOSE COMBINATION</button>
+						<button id="choose-and-gen">CHOOSE COMBINATIONS</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
 	</main>
-	<!-- The Modal -->
+	<!-- The Choose Modal Dialog -->
 	<div id="choose-dialog" class="modal">
-
-	  <!-- Modal content -->
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <span class="close">&times;</span>
-	      <h2>Select the desired combination</h2>
-	    </div>
-	    <div class="modal-body">
-	      <p>Some text in the Modal Body</p>
-	      <p>Some other text...</p>
-	    </div>
-	    <div class="modal-footer">
-	      <h3>GENERATE</h3>
-	    </div>
-	  </div>
-
+		<div class="modal-content">
+		    <div class="modal-header">
+		    	<span class="close">&times;</span>
+		    	<h1>Select the desired combinations</h1>
+		    </div>
+		    <div class="modal-body">
+		      	<p id="high-card-sel" class="checker-off">High Card (K♥ J♥ 8♣ 7♦ 4♠)</p>
+		    	<p id="pair-sel" class="checker-off">One Pair (4♥ 4♠ K♠ 10♦ 5♠)</p>
+		    	<p id="two-pair-sel" class="checker-off">Two Pair (J♥ J♣ 4♣ 4♠ 9♥)</p>
+		    	<p id="three-sel" class="checker-off">Three of a Kind (2♦ 2♠ 2♣ K♠ 6♥)</p>
+		    	<p id="straight-sel" class="checker-off">Straight (7♣ 6♠ 5♠ 4♥ 3♥)</p>
+		    	<p id="flush-sel" class="checker-off">Flush (K♣ 10♣ 7♣ 6♣ 4♣)</p>
+		    	<p id="full-house-sel" class="checker-off">Full House (3♣ 3♠ 3♦ 6♣ 6♥)</p>
+		    	<p id="four-sel" class="checker-off">Four of a Kind (9♣ 9♠ 9♦ 9♥ J♥)</p>
+		    	<p id="straight-flush-sel" class="checker-off">Straight Flush (Q♥ J♥ 10♥ 9♥ 8♥)</p>
+		    	<p id="royal-straight-flush-sel" class="checker-off">Royal Straight Flush (A♦ K♦ Q♦ J♦ 10♦)</p>
+		    </div>
+		    <div class="modal-footer">
+		    	<button id="find-appropriate-hand">GENERATE</button>
+		    </div>
+		</div>
 	</div>
-	<script>
-	// Get the modal
-	var modal = document.getElementById('choose-dialog');
-
-	// Get the button that opens the modal
-	var btn = document.getElementById("choose-and-gen");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks the button, open the modal 
-	btn.onclick = function() {
-	    modal.style.display = "block";
-	};
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
-	};
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	};
-	</script>
 	<script src="scripts/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/app.js" type="text/javascript" charset="utf-8"></script>
 </body>

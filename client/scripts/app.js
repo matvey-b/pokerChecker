@@ -40,6 +40,36 @@ var main = function () {
 		checkHandBtn.trigger("click");
 	});
 	
+	/////////// CHOOSE DIALOG ////////////////
+	const $chooseDialog = $("#choose-dialog");
+	const $chooseBtn = $("#choose-and-gen");
+	const $closeBtn = $(".close");
+	// Show dialog
+	$chooseBtn.on("click", () => $chooseDialog.css("display", "block"));
+	// Close dialog
+	$closeBtn.on("click", () => $chooseDialog.css("display", "none"));
+	// When the user clicks anywhere outside of the modal, close it
+	$(window).on("click", event => {
+		if ($(event.target)[0] == $chooseDialog[0]) {
+			$closeBtn.trigger("click");
+		}
+	});
+
+	const getCheckBoxesFromModalDialog = () => {
+			return $(".modal-body .checker-on, .modal-body .checker-off");
+		};
+
+	const enableCheckBoxesFlashing = checkBoxesCollection => {
+		const switchCheckBoxState = event => {
+			$(event.target).toggleClass("checker-on checker-off");
+		};
+		checkBoxesCollection.on("click", switchCheckBoxState);
+	};
+	
+	enableCheckBoxesFlashing(getCheckBoxesFromModalDialog());
+	//////////////////////////////////////////
+	
+
 	console.log("App is working!!!");
 	// console.log(getRandomHand());
 };
