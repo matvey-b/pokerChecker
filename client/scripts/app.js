@@ -86,29 +86,6 @@ function getRandomHandArray() {
 	return result;
 }
 
-// Checking cards combination on server
-const getCombinationName = hand => {
-	console.log('getCombName running...');
-	const objectForPOST = {
-		"msg": "Here is your Hand object!",
-		"hand": hand
-	};
-	
-	var result;
-	
-	if (objectForPOST.hand === undefined) {
-		console.log("There is no Hand object!");
-		result = "There is no Hand object!";
-	} else {
-		$.post("check_hand", objectForPOST, res => {
-					result = res.combinationName;
-					// console.log(result);
-				});
-		// console.log(x.responseJSON.combinationName);
-	}
-	return result;
-};
-
 // Update data on our gaming table
 const updateCardTable = hand => {
 	const updateCardContainers = () => {
@@ -135,11 +112,22 @@ const updateCardTable = hand => {
 		});
 	};
 
-	var combName = getCombinationName(hand);
 	const updateCombinationName = () => {
-		console.log('updCombName running...');
-		console.log(combName);
-		// $(".combination-name h3").text(combName);
+		const setName = res => {
+			// Callback function for $.post
+			const combName = res.combinationName;
+			$(".combination-name h3").text(combName);
+		};
+
+		const requestDataFromSrv = () => {
+			const dataForSend = {
+				"msg" : "Hello from client!",
+				"hand" : hand
+			};
+			$.post("check_hand", dataForSend, setName);
+		};
+
+		requestDataFromSrv();
 	};
 
 	updateCardContainers();
