@@ -1,49 +1,12 @@
 var main = function () {
-	var newCreatedHand; // oject of new generated Hand
+	$('#random-gen').on('click', () => 
+					generateRandomTable());
 
-	// Create Hand by Random Generating
-	const generateHandBtn = $("#generateHand");
-	generateHandBtn.on("click", () => {
-		newCreatedHand = getRandomHand();
-		for (var i = 0; i < newCreatedHand.length; i++) {
-			const cardId = '#card' + i;
-			$(cardId).hide();
-			$(cardId + ' .rank').text(newCreatedHand[i].rank);
-			$(cardId + ' .suit').text(newCreatedHand[i].suit);
-			$(cardId).fadeIn();
-		}
-	});
-
-	// Send on server for checking cards combination
-	const checkHandBtn = $("button#checkHand"); 
-	checkHandBtn.on("click", () => {
-		const objectForPOST = {
-			"msg": "Here is your Hand object!",
-			"hand": newCreatedHand
-		};
-		if (objectForPOST.hand === undefined) {
-			console.log("There is no Hand object!");
-		} else {
-			$.post("check_hand", objectForPOST, function (res) {
-				console.log(res);
-				const $combNameField = $("#combinationName");
-				$combNameField.hide();
-				$combNameField.text(res.combinationName);
-				$combNameField.fadeIn();
-			});
-		}
-	});
-
-	// Generate and send to check in one action
-	$("#generateAndCheck").on("click", () => {
-		generateHandBtn.trigger("click");
-		checkHandBtn.trigger("click");
-	});
-	
 	/////////// CHOOSE DIALOG ////////////////
 	const $chooseDialog = $("#choose-dialog");
 	const $chooseBtn = $("#choose-and-gen");
 	const $closeBtn = $(".close");
+	
 	// Show dialog
 	$chooseBtn.on("click", () => $chooseDialog.css("display", "block"));
 	// Close dialog
@@ -55,6 +18,7 @@ var main = function () {
 		}
 	});
 
+	// My checkboxes implementation
 	const getCheckBoxesFromModalDialog = () => {
 			return $(".modal-body .checker-on, .modal-body .checker-off");
 		};
@@ -71,10 +35,17 @@ var main = function () {
 	
 
 	console.log("App is working!!!");
-	// console.log(getRandomHand());
+	// console.log(getRandomHandArray());
 };
 
-function getRandomHand() {
+// Get formatted card name str from card object
+const getCardName = card => {
+	const rank = card.rank[0].toUpperCase() + card.rank.slice(1);
+	const suit = card.suit[0].toUpperCase() + card.suit.slice(1);
+	return rank + ' of ' + suit;
+};
+
+function getRandomHandArray() {
 	var result = [];
 
 	const possibleRanks = ["2", "3", "4", "5", "6",
@@ -114,5 +85,71 @@ function getRandomHand() {
 	iter(getRandomCard());
 	return result;
 }
+
+// Checking cards combination on server
+const getCombinationName = hand => {
+	console.log('getCombName running...');
+	const objectForPOST = {
+		"msg": "Here is your Hand object!",
+		"hand": hand
+	};
+	
+	var result;
+	
+	if (objectForPOST.hand === undefined) {
+		console.log("There is no Hand object!");
+		result = "There is no Hand object!";
+	} else {
+		$.post("check_hand", objectForPOST, res => {
+					result = res.combinationName;
+					// console.log(result);
+				});
+		// console.log(x.responseJSON.combinationName);
+	}
+	return result;
+};
+
+// Update data on our gaming table
+const updateCardTable = hand => {
+	const updateCardContainers = () => {
+		const updateCardContainerByIdx = (card, index) => {
+			const $cardContainers = $(".cards-line div[class^=card]");
+			const updateImage = () => {
+				const $cardImg = $cardContainers.eq(index).children("img");
+				const img_path = `images/${card.rank}_of_${card.suit}.png`;
+				$cardImg.hide();
+				$cardImg.attr("src", img_path);
+				$cardImg.fadeIn(800);
+			};
+			const updateDescription = () => {
+				const cardName = getCardName(card);
+				$cardContainers.eq(index).children("p").text(cardName);
+			};
+
+			updateImage();
+			updateDescription();
+		};
+
+		hand.forEach((card, index) => {
+			updateCardContainerByIdx(card, index);
+		});
+	};
+
+	var combName = getCombinationName(hand);
+	const updateCombinationName = () => {
+		console.log('updCombName running...');
+		console.log(combName);
+		// $(".combination-name h3").text(combName);
+	};
+
+	updateCardContainers();
+	updateCombinationName();
+};
+
+// Main random generator function
+const generateRandomTable = () => {
+	const newHand = getRandomHandArray();
+	updateCardTable(newHand);
+};
 
 $(document).ready(main);
