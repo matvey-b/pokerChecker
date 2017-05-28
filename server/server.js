@@ -12,10 +12,10 @@ var app = express();
 app.use(express.static(__dirname + '/../client')); // absolute path as recommends in express documentation
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/check_hand", function (req, res) {
+app.post("/get_comb_name", function (req, res) {
 	const receivedHand = req.body.hand;
 	const receivedMsg = req.body.msg;
-	const combinationName = pokerChecker.checkHand(receivedHand);
+	const combinationName = pokerChecker.getCombinationName(receivedHand);
 	res.json({"error": null, "combinationName": combinationName });
 	if (debug) {
 		console.log(receivedMsg);

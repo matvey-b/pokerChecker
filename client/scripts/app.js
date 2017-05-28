@@ -122,7 +122,7 @@ const updateCardTable = hand => {
 				"hand" : hand
 			};
 			var result;
-			$.post("check_hand", requestData, res => {
+			$.post("get_comb_name", requestData, res => {
 				result = res.combName; 
 			});
 			return result;
@@ -142,7 +142,7 @@ const updateCardTable = hand => {
 				"msg" : "Hello from client!",
 				"hand" : hand
 			};
-			$.post("check_hand", requestData, setName);
+			$.post("get_comb_name", requestData, setName);
 		};
 
 		requestDataFromSrv();

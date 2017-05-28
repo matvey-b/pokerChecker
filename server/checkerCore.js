@@ -360,8 +360,9 @@ const testFromCombGenerator = () => {
 
 ////////// EXPORTS //////////////
 module.exports.test = testAllChecks;
-module.exports.checkHand = getCombinationName;
+module.exports.getCombinationName = getCombinationName;
 module.exports.handForTests = handForTests;
+module.exports.getHandFromCombinations = getHandFromCombinations;
 
 //////// START SIMPLE TEST IN DEBUG MODE IF RUN MODULE DIRECTLY //////
 if (!module.parent || debug) {
