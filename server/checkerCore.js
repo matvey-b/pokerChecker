@@ -50,7 +50,7 @@ const containNTimes = (rankName, ranksArray, numOfTimes) => {
 
 ////////////  Checkers //////////////
 const isHighCard = hand => {
-	// Dummy function used in some in checkHand function
+	// Dummy function used in some in getCombinationName function
 	return true;
 };
 
@@ -219,7 +219,7 @@ const hasRoyalFlush = hand => {
 
 };
 
-function checkHand(hand) {
+function getCombinationName(hand) {
 	// manually create array with all checks and combination names
 	const allChecks = [
 	{ "combinationName": "Royal Flush", "checkFunc": hasRoyalFlush },
@@ -259,6 +259,72 @@ const printHand = hand =>{
 	});
 };
 
+function getRandomHandArray() {
+	var result = [];
+
+	const possibleRanks = ["2", "3", "4", "5", "6",
+	"7", "8", "9", "10", "jack", "queen", "king", "ace"];
+	const possibleSuits = ["hearts", "diamonds", "spades", "clubs"];
+
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	function getRandomCard() {
+		var result = {};
+		result.rank = possibleRanks[getRandomInt(0, possibleRanks.length)];
+		result.suit = possibleSuits[getRandomInt(0, possibleSuits.length)];
+		return result;
+	}
+
+	function iter(generatedCard) {
+		function isEqualToGeneratedCard(card) {
+			const hasEqualSuit = card.suit === generatedCard.suit ?
+			true : false;
+			const hasEqualRank = card.rank === generatedCard.rank ?
+			true : false;
+			return hasEqualSuit && hasEqualRank;
+		}
+		if (result.length < 5) {
+			const countOfEqualToGeneratedCard =
+				result.filter(isEqualToGeneratedCard).length;
+			if (countOfEqualToGeneratedCard === 0) {
+				result.push(generatedCard);
+				iter(getRandomCard());
+			} else {
+				iter(getRandomCard());
+			}
+		}
+	}
+	iter(getRandomCard());
+	return result;
+}
+
+const getHandFromCombinations = combNames => {
+	// Generate random hands until some of that not equeal for one of combName
+	/* That method dont work cuz for great combinations it returns Call stack 
+	exeeded error:
+	const iter = hand => {
+		const hasSutableCombination = combName => 
+			combName === getCombinationName(hand);
+		if (combNames.some(hasSutableCombination)) {
+			return hand;
+		} else {
+			iter(getRandomHandArray());
+		}
+	};
+	return iter(getRandomHandArray());*/
+
+	var hand; // need for next declaration
+	const hasSutableCombination = combName => 
+		combName === getCombinationName(hand);
+	
+	do {
+		hand = getRandomHandArray();
+		if (combNames.some(hasSutableCombination)) return hand;
+	} while (true);
+};
+
 ///////// SIMPLE TEST FOR ONE HAND //////////////
 const testAllChecks = hand => {
 	console.log('Testing checker...');
@@ -269,19 +335,39 @@ const testAllChecks = hand => {
 	console.log('On hand:');
 	printHand(hand);
 	console.log();
-	console.log('Checker return => ' + checkHand(hand));
+	console.log('Checker return => ' + getCombinationName(hand));
 	console.log('===========================');
+};
+
+const testFromCombGenerator = () => {
+	/*"combinationName": "Royal Flush"
+	"combinationName": "Straight Flush"
+	"combinationName": "4-of-a-Kind"
+	"combinationName": "Full House"
+	"combinationName": "Flush"
+	"combinationName": "Straight"
+	"combinationName": "3-of-a-Kind"
+	"combinationName": "Two Pairs"
+	"combinationName": "One Pair"
+	"combinationName": "High Card"*/
+	
+	console.log('Run testFromCombGenetor...');
+	const combNames = ['Straight Flush'];
+	const resultHand = getHandFromCombinations(combNames);
+	printHand(resultHand);
+	console.log('Combination => ', getCombinationName(resultHand));
 };
 
 ////////// EXPORTS //////////////
 module.exports.test = testAllChecks;
-module.exports.checkHand = checkHand;
+module.exports.checkHand = getCombinationName;
 module.exports.handForTests = handForTests;
 
 //////// START SIMPLE TEST IN DEBUG MODE IF RUN MODULE DIRECTLY //////
 if (!module.parent || debug) {
-	debug = true; // if module starts directly then turn on debugging
-	testAllChecks(handForTests);
+	// debug = true; // if module starts directly then turn on debugging
+	// testAllChecks(handForTests);
+	testFromCombGenerator();
 }
 
 
