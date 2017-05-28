@@ -113,18 +113,36 @@ const updateCardTable = hand => {
 	};
 
 	const updateCombinationName = () => {
-		const setName = res => {
-			// Callback function for $.post
-			const combName = res.combinationName;
+		/*On moment when i write this code, i don't understand how can use
+		$.post as handler for 'setName' func and not vice versa.
+		If i try implement data requesting, like that:
+		const getCombName = hand => {
+			const requestData = {
+				"msg" : "Hello from client!",
+				"hand" : hand
+			};
+			var result;
+			$.post("check_hand", requestData, res => {
+				result = res.combName; 
+			});
+			return result;
+		}
+		then in 'result' i get just undefined..
+		It's going on cuz $.post method is asynchronous. And how it work, i still not fully understand.
+		Now i just use setName as handler for $.post method.
+		*/
+		const setName = response => {
+			// Callback handler for $.post
+			const combName = response.combinationName;
 			$(".combination-name h3").text(combName);
 		};
 
 		const requestDataFromSrv = () => {
-			const dataForSend = {
+			const requestData = {
 				"msg" : "Hello from client!",
 				"hand" : hand
 			};
-			$.post("check_hand", dataForSend, setName);
+			$.post("check_hand", requestData, setName);
 		};
 
 		requestDataFromSrv();
