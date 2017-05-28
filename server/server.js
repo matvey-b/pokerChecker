@@ -23,6 +23,13 @@ app.post("/get_comb_name", function (req, res) {
 	}
 });
 
+app.post("/get_hand_from_comb", (req, res) => {
+	var resJSON = {"error": null};
+	const combNames = req.body.combNames;
+	resJSON.hand = pokerChecker.getHandFromCombinations(combNames);
+	res.json(resJSON);
+});
+
 app.listen(3000, function () {
 	console.log('pokerChecker backend listening on port 3000!');
 });

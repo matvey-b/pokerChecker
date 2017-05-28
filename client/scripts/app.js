@@ -18,6 +18,10 @@ var main = function () {
 		}
 	});
 
+	// Get hand from combinations
+	const $getHandFromCombBtn = $("#find-appropriate-hand");
+	$getHandFromCombBtn.on("click", () => getHandFromCombinations());
+
 	// My checkboxes implementation
 	const getCheckBoxesFromModalDialog = () => {
 			return $(".modal-body .checker-on, .modal-body .checker-off");
@@ -150,6 +154,43 @@ const updateCardTable = hand => {
 
 	updateCardContainers();
 	updateCombinationName();
+}; // end updateCardTable
+
+// Generating hand from combinations names
+const getCombNames = () => {
+	const chkBoxToCombNamesDict = {
+		"high-card-sel": "High Card",
+		"pair-sel": "One Pair",
+		"two-pair-sel": "Two Pairs",
+		"three-sel": "3-of-a-Kind",
+		"straight-sel": "Straight",
+		"flush-sel" : "Flush",
+		"full-house-sel": "Full House",
+		"four-sel": "4-of-a-Kind",
+		"straight-flush-sel": "Straight Flush",
+		"royal-straight-flush-sel": "Royal Flush"
+	};
+	var combNames = [];
+	const $turnedOnCheckBoxes = $(".modal-body .checker-on");
+	$turnedOnCheckBoxes.each(index => {
+		const chkBoxName = $turnedOnCheckBoxes.eq(index).attr("id");
+		combNames.push(chkBoxToCombNamesDict[chkBoxName]);
+	});
+	return combNames;
+};
+
+const getHandFromCombinations = () => {
+	const handler = response => {
+		console.log(response.hand);
+	};
+	const requestDataFromSrv = combNames => {
+		const requestData = {
+			"combNames" : combNames
+		};
+		$.post("get_hand_from_comb", requestData, handler);
+	};
+	const combNames = getCombNames();
+	requestDataFromSrv(combNames);
 };
 
 // Main random generator function
