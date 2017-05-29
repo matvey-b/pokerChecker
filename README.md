@@ -12,9 +12,9 @@ It's micro web app based on Jquery client and nodejs on server side.
 
 ### App will do the following things:
 * ##### Frontend:
-	* allow to make a set of cards manually or generate automatically
-	* send check request on server and display response
-	* display five last req res pairs
+	* allow to generate random cards hands and display it on main page
+	* allow to choose set of desired combinations for generating
+	* display history of operations
 * ##### Backend:
 	* get requests from client and then checks cards combinations. There will be a separate module for handling hand combinations
 	* http server will be based on Express js framework
@@ -22,13 +22,18 @@ It's micro web app based on Jquery client and nodejs on server side.
 
 ##### So, structure of project will look like this:
 ```
-	- server.js
-	- pokerChecker.js
+	- index.js
+	- package.json
+	./server/
+		- server.js
+		- checkerCore.js
 	./client/
 		- index.html
 		- scripts/
 				- app.js
 				- jquery.js
-		- css/style.css
+		- styles/
+			- style.css
+			- normalize.css
 		- images/*
 ```
