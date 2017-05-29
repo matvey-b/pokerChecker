@@ -180,9 +180,18 @@ const getCombNames = () => {
 };
 
 const getHandFromCombinations = () => {
-	const handler = response => {
-		console.log(response.hand);
+	const closeModalDialog = () => {
+		const $closeBtn = $(".close");
+		$closeBtn.trigger("click");
 	};
+
+	const handler = response => {
+		const hand = response.hand;
+		console.log(hand);
+		closeModalDialog();
+		updateCardTable(hand);
+	};
+
 	const requestDataFromSrv = combNames => {
 		const requestData = {
 			"combNames" : combNames

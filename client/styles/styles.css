@@ -183,7 +183,7 @@ button:hover {
 	.modal-body {
 		padding: 2px 16px;
 		color: black;
-		font-size: 1.6em;
+		font-size: 1.4em;
 		text-align: center;
 		width: 60%;
 	    margin: auto;
@@ -191,6 +191,7 @@ button:hover {
 
 	.modal-body p {
 		cursor: pointer;
+		margin: 10px 0;
 	}
 
 	.modal-body p.checker-on {
