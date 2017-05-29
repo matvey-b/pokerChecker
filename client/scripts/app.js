@@ -36,10 +36,6 @@ var main = function () {
 	
 	enableCheckBoxesFlashing(getCheckBoxesFromModalDialog());
 	//////////////////////////////////////////
-	
-
-	console.log("App is working!!!");
-	// console.log(getRandomHandArray());
 };
 
 // Get formatted card name str from card object
@@ -47,6 +43,16 @@ const getCardName = card => {
 	const rank = card.rank[0].toUpperCase() + card.rank.slice(1);
 	const suit = card.suit[0].toUpperCase() + card.suit.slice(1);
 	return rank + ' of ' + suit;
+};
+
+// Show loading dialog
+const showLoadingDialog = () => {
+		$("body").addClass("on-loading");
+	};
+
+// Hide loading dialog
+const hideLoadingDialog = () => {
+	$("body").removeClass("on-loading");
 };
 
 function getRandomHandArray() {
@@ -156,6 +162,12 @@ const updateCardTable = hand => {
 	updateCombinationName();
 }; // end updateCardTable
 
+// Main random generator function
+const generateRandomTable = () => {
+	const newHand = getRandomHandArray();
+	updateCardTable(newHand);
+};
+
 // Generating hand from combinations names
 const getCombNames = () => {
 	const chkBoxToCombNamesDict = {
@@ -185,10 +197,10 @@ const getHandFromCombinations = () => {
 		$closeBtn.trigger("click");
 	};
 
-	const handler = response => {
+	const applyResult = response => {
 		const hand = response.hand;
-		console.log(hand);
 		closeModalDialog();
+		hideLoadingDialog();
 		updateCardTable(hand);
 	};
 
@@ -196,16 +208,14 @@ const getHandFromCombinations = () => {
 		const requestData = {
 			"combNames" : combNames
 		};
-		$.post("get_hand_from_comb", requestData, handler);
+		showLoadingDialog();
+		$.post("get_hand_from_comb", requestData, applyResult);
 	};
 	const combNames = getCombNames();
-	requestDataFromSrv(combNames);
-};
-
-// Main random generator function
-const generateRandomTable = () => {
-	const newHand = getRandomHandArray();
-	updateCardTable(newHand);
+	if (combNames.length !== 0) {
+		// send request only if user select one or more combinations
+		requestDataFromSrv(combNames);
+	}
 };
 
 $(document).ready(main);
