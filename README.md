@@ -44,6 +44,6 @@ However, the main functions already implemented.
 
 ### Installation and running is very simple:
 1. Run `git clone https://github.com/matvey-b/pokerChecker.git` for download sourcecode
-2. In repository dir run `npm install' for installing dependencies
+2. In repository dir run `npm install` for installing dependencies
 3. Run `npm start` for start web server
 4. Go to `http://localhost:3000` for access to web app.
