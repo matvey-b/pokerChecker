@@ -30,10 +30,20 @@ It's micro web app based on Jquery client and nodejs on server side.
 	./client/
 		- index.html
 		- scripts/
-				- app.js
-				- jquery.js
+			- app.js
+			- jquery.js
 		- styles/
 			- style.css
 			- normalize.css
 		- images/*
 ```
+
+### Current status
+At this time, the application can already be started. But it looks very dampy.
+However, the main functions already implemented.
+
+### Installation and running is very simple:
+1. Run `git clone https://github.com/matvey-b/pokerChecker.git` for download sourcecode
+2. In repository dir run `npm install' for installing dependencies
+3. Run `npm start` for start web server
+4. Go to `http://localhost:3000` for access to web app.
